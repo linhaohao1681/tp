@@ -1,4 +1,4 @@
-name: Deploy to InfinityFree
+name: FTP Deploy
 
 on:
   push:
@@ -6,24 +6,16 @@ on:
       - main
 
 jobs:
-  deploy:
+  ftp-deploy:
     runs-on: ubuntu-latest
-
     steps:
-    - name: Checkout code
+    - name: Checkout
       uses: actions/checkout@v3
 
-    - name: Install dependencies
-      run: |
-        sudo apt update
-        sudo apt install -y lftp
-
-    - name: Upload files to InfinityFree
+    - name: FTP Deploy
       uses: SamKirkland/FTP-Deploy-Action@v4
       with:
         server: ${{ secrets.FTP_SERVER }}
         username: ${{ secrets.FTP_USERNAME }}
         password: ${{ secrets.FTP_PASSWORD }}
         server-dir: /htdocs/
-      # run: |
-      #   lftp -u ${{ secrets.FTP_USERNAME }},${{ secrets.FTP_PASSWORD }} -e "mirror -R ./ /htdocs; quit" ftp://ftpupload.net
