@@ -43,6 +43,6 @@ class Curl
             return ['success' => false, 'error' => $error];
         }
 
-        return ['success' => true, 'data' => $response];
+        return $response;
     }
 }
